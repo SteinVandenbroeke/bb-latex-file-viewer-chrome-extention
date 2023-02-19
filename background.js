@@ -30,17 +30,16 @@ chrome.contextMenus.onClicked.addListener((item, tab) => {
   })
   .then((latexContent) => {
 
-    const url = 'https://quicklatex.com/latex3.f';
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain'
-      },
-      body: "formula=\\" + latexContent
-    };
-    
-    fetch(url, options)
-      .then(function (response) {
+    fetch("https://quicklatex.com/latex3.f", {
+          "headers": {
+            "accept": "*/*",
+            "content-type": "application/x-www-form-urlencoded",
+            "x-requested-with": "XMLHttpRequest"
+          },
+          "referrer": "https://quicklatex.com/",
+          "body": "formula=\\begin{document}" + latexContent.split("\\begin{document}")[1].replaceAll("&", "%26")   + "&fsize=17px&fcolor=000000&mode=0&out=1&remhost=quicklatex.com&preamble=" + latexContent.split("\\begin{document}")[0].replaceAll("&", "%26")   ,
+          "method": "POST",
+        }).then(function (response) {
         // The API call was successful!
         return response.text();
       })
