@@ -37,7 +37,7 @@ chrome.contextMenus.onClicked.addListener((item, tab) => {
             "x-requested-with": "XMLHttpRequest"
           },
           "referrer": "https://quicklatex.com/",
-          "body": "formula=\\begin{document}" + latexContent.split("\\begin{document}")[1].replaceAll("&", "%26")   + "&fsize=17px&fcolor=000000&mode=0&out=1&remhost=quicklatex.com&preamble=" + latexContent.split("\\begin{document}")[0].replaceAll("&", "%26")   ,
+          "body": "formula="+ latexContent.replaceAll("&", "%26")   + "&fsize=17px&fcolor=000000&mode=0&out=1&remhost=quicklatex.com&preamble=" + latexContent.split("\\begin{document}")[0].replaceAll("&", "%26")   ,
           "method": "POST",
         }).then(function (response) {
         // The API call was successful!
